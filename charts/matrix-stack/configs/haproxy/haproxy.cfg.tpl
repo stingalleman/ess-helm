@@ -9,6 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- with required "haproxy/haproxy.cfg.tpl missing context" .context -}}
 
 global
+  maxconn 40000
   log stdout format raw local0 info
 
   # Allow for rewriting HTTP headers (e.g. Authorization) up to 4k
@@ -20,6 +21,9 @@ global
 
 defaults
   mode http
+  fullconn 20000
+
+  maxconn 20000
 
   log global
 
