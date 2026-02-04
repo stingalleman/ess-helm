@@ -83,23 +83,6 @@ spec:
           name: synapse-ready
           protocol: TCP
 {{- end }}
-        startupProbe: {{- include "element-io.ess-library.pods.probe" .startupProbe | nindent 10 }}
-          httpGet:
-{{- if $.Values.synapse.enabled }}
-            path: /synapse_ready
-            port: synapse-ready
-{{- else }}
-            path: /haproxy_test
-            port: haproxy-metrics
-{{- end }}
-        livenessProbe: {{- include "element-io.ess-library.pods.probe" .livenessProbe | nindent 10 }}
-          httpGet:
-            path: /haproxy_test
-            port: haproxy-metrics
-        readinessProbe: {{- include "element-io.ess-library.pods.probe" .readinessProbe | nindent 10 }}
-          httpGet:
-            path: /haproxy_test
-            port: haproxy-metrics
 {{- with .resources }}
         resources:
           {{- toYaml . | nindent 10 }}
